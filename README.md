@@ -15,14 +15,19 @@ SceneUI Pro unifies local and remote LLM orchestration, multi-character identity
 
 ## 📺 Video Demos & Production Showcase
 
-| 🎬 Full Studio Workflow (1m 45s) | 🎞️ Final Rendered Animation Result (55s) |
-| :---: | :---: |
-> 🚀 **Official Production Demos**: High-definition 1080p video assets hosted via [SceneUI Pro v1.0 Showcase Release](https://github.com/AironasMsi/SceneUI-Pro/releases/tag/v1.0.0-showcase). Click to stream or download instantly:
+Watch the autonomous production workstation in action and the master 1080p rendered result directly below:
 
-| 🎬 Full Studio Workflow (1m 45s) | 🎞️ Final Rendered Animation Result (55s) |
-| :---: | :---: |
-| [![Studio Walkthrough](./screenshots/06_Visual_Engine_Batch_Image_Gen.png)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/studio_workflow_walkthrough.mp4) | [![Final Animation](./screenshots/14_Final_Rendered_Video_Playback.png)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/final_animation_result.mp4) |
-| 🎥 **[Watch / Download Studio Walkthrough (1080p MP4)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/studio_workflow_walkthrough.mp4)**<br>*Shows script decomposition, character casting, batch visual generation, WhisperX sync, and non-linear audio mixing.* | 🍿 **[Watch / Download Master Animation (1080p MP4)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/final_animation_result.mp4)**<br>*Complete 1080p final cartoon narrative with synchronized voiceover narration, diegetic Foley SFX, BGM ducking, and dynamic captions.* |
+### 🎞️ Master Animation Result (55s Showcase)
+https://github.com/user-attachments/assets/35326395-1c1f-4b98-bc22-0bef39a679df
+
+> 🍿 **Final Animation**: Complete 1080p cartoon narrative generated autonomously by SceneUI Pro, featuring locked stickman visual identity, synchronized voiceover narration, diegetic Foley sound effects, dynamic BGM auto-ducking, and automated ASS captions.
+
+<br>
+
+### 🎬 Studio Workflow & Multi-GPU Pipeline (1m 45s Walkthrough)
+https://github.com/user-attachments/assets/69d44ea0-e255-4b51-9e5a-bd452480897a
+
+> 🎥 **Studio Walkthrough**: Demonstrates end-to-end workflow: raw story script decomposition with LLM, character casting & identity locking, batch multi-GPU visual diffusion, sub-second WhisperX phoneme alignment, and non-linear audio mastering.
 
 ---
 
