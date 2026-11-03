@@ -17,8 +17,12 @@ SceneUI Pro unifies local and remote LLM orchestration, multi-character identity
 
 | 🎬 Full Studio Workflow (1m 45s) | 🎞️ Final Rendered Animation Result (55s) |
 | :---: | :---: |
-| [![Studio Walkthrough](./screenshots/06_Visual_Engine_Batch_Image_Gen.png)](./media/studio_workflow_walkthrough.mp4) | [![Final Animation](./screenshots/14_Final_Rendered_Video_Playback.png)](./media/final_animation_result.mp4) |
-| 🎥 **[Watch Studio Walkthrough (MP4)](./media/studio_workflow_walkthrough.mp4)**<br>*Shows script decomposition, character casting, batch visual generation, WhisperX sync, and non-linear audio mixing.* | 🍿 **[Watch Master Animation (MP4)](./media/final_animation_result.mp4)**<br>*Complete 1080p final cartoon narrative with synchronized voiceover narration, diegetic Foley SFX, BGM ducking, and dynamic captions.* |
+> 🚀 **Official Production Demos**: High-definition 1080p video assets hosted via [SceneUI Pro v1.0 Showcase Release](https://github.com/AironasMsi/SceneUI-Pro/releases/tag/v1.0.0-showcase). Click to stream or download instantly:
+
+| 🎬 Full Studio Workflow (1m 45s) | 🎞️ Final Rendered Animation Result (55s) |
+| :---: | :---: |
+| [![Studio Walkthrough](./screenshots/06_Visual_Engine_Batch_Image_Gen.png)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/studio_workflow_walkthrough.mp4) | [![Final Animation](./screenshots/14_Final_Rendered_Video_Playback.png)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/final_animation_result.mp4) |
+| 🎥 **[Watch / Download Studio Walkthrough (1080p MP4)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/studio_workflow_walkthrough.mp4)**<br>*Shows script decomposition, character casting, batch visual generation, WhisperX sync, and non-linear audio mixing.* | 🍿 **[Watch / Download Master Animation (1080p MP4)](https://github.com/AironasMsi/SceneUI-Pro/releases/download/v1.0.0-showcase/final_animation_result.mp4)**<br>*Complete 1080p final cartoon narrative with synchronized voiceover narration, diegetic Foley SFX, BGM ducking, and dynamic captions.* |
 
 ---
 
