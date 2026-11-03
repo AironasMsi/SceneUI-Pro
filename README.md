@@ -255,6 +255,39 @@ SceneUI Pro is built as a distributed client-server production environment:
 
 ---
 
+## 📂 Repository & Module Structure
+
+`	ext
+SceneUI-Pro/
+├── server.py                    # FastAPI core backend application & lifespan orchestrator
+├── config.py                    # Environment settings, GPU farm endpoints & cloud API keys
+├── schemas.py                   # Pydantic data models for scenes, characters & render tasks
+├── ws_manager.py                # Asynchronous WebSocket telemetry manager & live log streamer
+├── routers/
+│   ├── agents_characters.py     # LLM character extraction & visual identity anchor router
+│   ├── agents_scenes.py         # 18-scene script breakdown & narrative matrix generator
+│   ├── audio.py                 # Multi-speaker voice clone synthesis & chunking router
+│   ├── cloud_gen.py             # Cloud API fallback router (NanoBanana, MiniMax, OpenAI)
+│   ├── comfy_ui_workflow.py     # Headless ComfyUI graph compiler, payload injector & poller
+│   ├── farm.py                  # Distributed multi-GPU node health, VRAM & task balancer
+│   ├── llm.py                   # Local Ollama / GPT-4o / Gemini direct orchestration
+│   ├── projects.py              # Project state persistence, SQLite sessions & snapshots
+│   ├── render.py                # Non-linear post-production, timeline stitcher & FFmpeg muxer
+│   └── styles.py                # Visual DNA preset library, lighting & style injection
+├── frontend/
+│   ├── index.html               # Reactive studio single-page cockpit interface
+│   ├── js/                      # Modular client logic (canvas, timeline, audio waves)
+│   └── style.css                # Dark-mode professional production studio styling
+├── prompts/                     # Structured stylistic DNA anchors & negative prompts
+│   ├── cinematic_35mm_film/
+│   ├── studio_ghibli_anime/
+│   ├── cyberpunk_neon_noir/
+│   └── pixar_3d/
+└── data/                        # SQLite WAL databases, persistent caches & voice vaults
+`
+
+---
+
 ## 🔒 Security & Intellectual Property Notice
 
 * **Showcase Release:** This repository is published as a technical architecture portfolio showcase.
