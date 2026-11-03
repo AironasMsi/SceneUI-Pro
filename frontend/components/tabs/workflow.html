@@ -1,0 +1,132 @@
+<div id="tab-workflow" class="content hidden">
+  <div class="grid-wf">
+    <div class="flex-col">
+      <div class="panel">
+        <div class="panel-h">Global Settings</div>
+        <div class="flex-col">
+          <div class="flex">
+            <div class="field flex-1"><label>Width</label><input type="number" id="gW" value="1920"/></div>
+            <div class="field flex-1"><label>Height</label><input type="number" id="gH" value="1080"/></div>
+          </div>
+          <div class="flex">
+            <div class="field flex-1"><label>Steps</label><input type="number" id="gSteps" value="4"/></div>
+            <div class="field flex-1"><label>CFG</label><input type="number" id="gCfg" value="1.0" step="0.5"/></div>
+          </div>
+          <div class="field">
+            <label>Sampler</label>
+            <select id="gSampler">
+              <option value="euler">euler</option>
+              <option value="euler_ancestral">euler_ancestral</option>
+              <option value="dpmpp_2m">dpmpp_2m</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Seed Mode</label>
+            <select id="gSeedMode">
+              <option value="random">Randomize</option>
+              <option value="fixed">Fixed</option>
+            </select>
+          </div>
+          <div class="field hidden" id="gFixedSeedDiv">
+            <label>Fixed Seed</label>
+            <input type="number" id="gFixedSeed" value="941027876668241"/>
+          </div>
+          <div class="field">
+            <label>Model Preset</label>
+            <select id="gModelPreset">
+              <option value="nano_banana_2_flash|nano_banana_2_flash|none">🍌 Nano Banana 2 Flash (Cloud API)</option>
+              <option value="qwen_2_1|qwen_image_2.1_int8_convrot.safetensors|none">Qwen Image 2.1 (Native 2.1 Architecture) [NEW]</option>
+              <option value="latent_upscale|qwen_image_edit_2509_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors" selected>Qwen 2509 (Latent Upscale) [DEFAULT]</option>
+              <option value="latent_upscale|qwen_image_edit_2511_bf16.safetensors|Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2511 (New model & Latent Upscale)</option>
+              <option value="resize_pad|qwen_image_edit_2506_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2506-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2506 (Old model & Resize-Pad)</option>
+              <option value="custom">-- Custom / Other Model --</option>
+            </select>
+          </div>
+          <div id="gCustomModelDiv" class="hidden">
+            <div class="field">
+              <label>Workflow Mode</label>
+              <select id="gWfMode">
+                <option value="qwen_2_1">Qwen 2.1 (Native)</option>
+                <option value="latent_upscale" selected>Latent Upscale (Recommended)</option>
+                <option value="resize_pad">Resize & Pad (Old)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>UNET Model Name</label>
+              <input type="text" id="gUnetName" value="qwen_image_edit_2509_fp8_e4m3fn.safetensors"/>
+            </div>
+            <div class="field">
+              <label>LoRA Model Name</label>
+              <input type="text" id="gLoraName" value="Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors"/>
+            </div>
+          </div>
+          <button id="btnSaveGlobals" class="btn primary mt-2">Save Globals</button>
+        </div>
+      </div>
+
+      <div class="panel" id="panelCloudSettings">
+        <div class="panel-h">☁️ Cloud Settings (Google / Nano Banana)</div>
+        <div class="flex-col" style="gap:8px;">
+          <div class="text-xs text-muted">Synthesizes high-fidelity visual assets via Google GenAI API (~1.5s latency or batch throughput).</div>
+          <div class="field">
+            <label>Google API Key</label>
+            <div class="flex" style="gap:6px;">
+              <input type="password" id="cloudApiKeyInput" placeholder="AIzaSy..." style="flex:1; font-family:var(--mono); font-size:12px;" />
+              <button id="btnSaveCloudKey" type="button" class="btn good text-xs">Save Key</button>
+            </div>
+          </div>
+          <div class="text-xs text-muted" id="cloudApiKeyStatus">Statusas: tikrinama...</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h">References <span id="refCount" class="text-xs text-muted font-mono">(0)</span></div>
+        <div class="flex-col">
+          <div class="flex">
+            <button id="btnUploadRef" class="btn good flex-1">Upload References</button>
+            <input type="file" id="fileUploadRef" accept="image/*" class="hidden" multiple />
+            <button id="btnClearRefs" class="btn bad icon" title="Clear">✕</button>
+          </div>
+          <div class="text-xs text-muted">Selected files will be ingested into the server Vault. Multi-file upload supported.</div>
+          <div class="field mt-2">
+            <label>Fallback Ref</label>
+            <select id="gFallbackRef"><option value="">-- None --</option></select>
+          </div>
+          <div id="refList" class="flex-col mt-2" style="max-height:150px; overflow-y:auto; border:1px solid var(--border); border-radius:8px; padding:8px; background:rgba(0,0,0,.2)">
+            <div class="text-muted text-xs">No references.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <div>Scenes Prep <span id="sceneCount" class="text-xs text-muted font-mono">(0)</span></div>
+        <div class="flex" style="flex-wrap: wrap; gap: 6px;">
+          <button id="btnLoadDemoJson" class="btn text-xs" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4); font-weight: 700;" title="Atidaryti pilnus demonstracinius projektus su vaizdais, veikėjais ir garsu">🎯 Demo Showcase</button>
+          <button id="btnWorkflowOpenKinetic" type="button" class="btn text-xs" style="background: rgba(0, 255, 204, 0.12); color: var(--accent-secondary, #00ffcc); border: 1px solid rgba(0, 255, 204, 0.35); font-weight: 700;" onclick="if(typeof window.openKineticWriterModal==='function') window.openKineticWriterModal();" title="Atidaryti Kinetinių Titrų Studiją">✨ Kinetiniai Titrai</button>
+          <button id="btnLoadJson" class="btn primary text-xs">+ Load JSON</button>
+          <button id="btnValidateScenes" class="btn good text-xs">Validate & Match</button>
+          <button id="btnGoToImages" type="button" class="btn text-xs" style="background: rgba(110,168,255,0.15); color: var(--accent); border-color: rgba(110,168,255,0.3);" onclick="document.querySelector('.nav-item[data-tab=images]')?.click();" title="Eiti į Vaizdų generavimo / peržiūros tinklelį">🖼️ Į Vaizdus</button>
+          <button id="btnClearScenes" class="btn bad text-xs">Clear</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="scenesTable">
+          <thead>
+            <tr>
+              <th width="60">ID</th>
+              <th width="40%">Prompt & Script Text (UI)</th>
+              <th width="20%">Refs (A/B/C)</th>
+              <th width="120">Mode & Status</th>
+              <th width="60">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="scenesTbody">
+            <tr><td colspan="5" class="text-center text-muted" style="padding:40px">No scenes. Load JSON to begin.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

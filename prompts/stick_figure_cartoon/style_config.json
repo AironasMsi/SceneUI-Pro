@@ -1,0 +1,27 @@
+{
+  "displayName": "🥊 Minimalist Stick Figure",
+  "scene_suffix": "Minimalist 2D stick figure cartoon animation, clean black lineart, flat solid colors, simple expressive hand-drawn cartoon aesthetic, empty scene, no people",
+  "scene_negative": "3d render, realistic, photorealistic, blurry, noise, high detail shading, crowd, multiple people",
+  "character_negative": "blurry, low quality, crowd, multiple people, extra characters, photography, realistic human skin, 3d render, detailed face, realistic eyes",
+  "character_prompt_prefix": "make only one character in that exact style, ",
+  "character_prompt_suffix": ", same height, thin line limbs, simple style, in the same art style",
+  "background_extras_prompt": "(stylized stick figure extras in the same art style)",
+  "empty_scene_removals": [
+    "peach skin",
+    "photorealistic humans",
+    "fully proportioned human bodies"
+  ],
+  "base_prompts": {
+    "male": "make only one adult man character in that exact style, neutral gray clothes, short black hair, thin line arms and legs, in the same art style",
+    "female": "make woman character in that exact style, neutral gray clothes, black woman hair, thin line arms and legs, in the same art style, small height, same art style, white face",
+    "female_refined": "make her more woman, make up, curvy body, everything else keep the same, same height, same thin line limps",
+    "teen": "make teenager character in that exact style, neutral gray clothes, messy hair, thin line arms and legs, in the same art style, small height",
+    "kid": "make a small simple child character in that exact style, neutral gray clothes, messy black hair, thin line arms and legs, in the same art style, small height, white face"
+  },
+  "base_templates": {
+    "male": "stick_figure_cartoon_base_male.png",
+    "female": "stick_figure_cartoon_base_female.png",
+    "teen": "stick_figure_cartoon_base_teen.png",
+    "kid": "stick_figure_cartoon_base_kid.png"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "displayName": "\ud83c\udfdb\ufe0f Minimalist Architectural & Spatial",
+  "scene_suffix": "Architectural Digest editorial photography, minimalist spatial design, raw concrete and light travertine, floor-to-ceiling glass, soft diffused daylight, elegant spatial geometry, high-end interior, 8k.",
+  "scene_negative": "cluttered, messy, dirty, chaotic, cartoon, anime, 3d low poly, blurry, watermark",
+  "character_negative": "cartoon, anime, exaggerated poses, messy, low resolution, watermark",
+  "character_prompt_prefix": "Architectural lifestyle portrait, understated quiet luxury attire, clean geometric framing, ",
+  "character_prompt_suffix": ", Architectural Digest editorial aesthetic.",
+  "background_extras_prompt": "(minimalist silhouettes seated in architectural lounge)",
+  "empty_scene_removals": [
+    "stickman",
+    "cartoon",
+    "anime"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}

@@ -1,0 +1,81 @@
+<div id="tab-import" class="content hidden">
+  <div class="panel">
+    <!-- Row 0: Quick Visual Stage Switcher -->
+    <div class="flex items-center justify-between flex-wrap" style="gap:8px; padding-bottom:12px; margin-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div class="flex items-center flex-wrap" style="gap:6px;">
+        <span style="font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-right:4px;">Vaizdo etapas:</span>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Visual Grid" onclick="document.querySelector('.nav-item[data-tab=images]')?.click();">🖼️ Grid View</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Scenų lentelė" onclick="document.querySelector('.nav-item[data-tab=workflow]')?.click();">📋 Scene Matrix</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Greita kadrų atranka (Good / Bad)" onclick="document.querySelector('.nav-item[data-tab=review]')?.click();">🔍 QA & Curation</button>
+        <button type="button" class="btn active" style="font-size:11px; padding:4px 10px; border-radius:6px; font-weight:700;" title="External Asset Import">📥 Importas</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Laiko juosta" onclick="document.querySelector('.nav-item[data-tab=timeline]')?.click();">🎞️ Timeline</button>
+      </div>
+      <div class="flex items-center" style="gap:8px;">
+        <span style="font-size:11px; color:var(--accent); background:rgba(110,168,255,0.1); border:1px solid rgba(110,168,255,0.25); border-radius:12px; padding:2px 10px; font-weight:700;">Roundtrip importas</span>
+      </div>
+    </div>
+
+    <div class="panel-h">Import Externally Edited Images (Post-Prod / Roundtrip)</div>
+    <div class="text-sm text-muted mb-4">
+      Drag & drop or select images to import into project scenes. Supports automatic Scene ID detection (<code>S1</code>, <code>Scene 1</code>, <code>01.png</code>, <code>1.png</code>) or sequential auto-filling for empty scenes.
+    </div>
+
+    <!-- Controls & Options Card -->
+    <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between;">
+        
+        <!-- Mode Selector -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label style="font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">Import Mode:</label>
+          <select id="importModeSelect" style="background: var(--panel2); color: var(--text); border: 1px solid var(--border2); border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; outline: none;">
+            <option value="smart_match" selected>🎯 Smart Auto-Match (S1, Scene 1, 01, 1.png...)</option>
+            <option value="fill_empty">📦 Fill Empty Scenes in Order (Scene 1, Scene 2...)</option>
+            <option value="sequential_all">🔢 Sequential Fill All (1st file &rarr; S1, 2nd &rarr; S2...)</option>
+          </select>
+        </div>
+
+        <!-- Checkbox Options -->
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: var(--text);">
+            <input type="checkbox" id="importFallbackEmptyCheck" checked style="cursor: pointer;" />
+            <span>If ID not detected, fill empty scenes</span>
+          </label>
+
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: var(--text);">
+            <input type="checkbox" id="importOnlyEmptyCheck" style="cursor: pointer;" />
+            <span>Fill ONLY empty scenes (skip existing)</span>
+          </label>
+
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: var(--text);">
+            <input type="checkbox" id="importSetMainCheck" checked style="cursor: pointer;" />
+            <span>Set as Main & mark GOOD</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+    
+    <div id="importDropzone" style="border: 2px dashed var(--accent); border-radius: 12px; padding: 40px 20px; text-align: center; background: rgba(110, 168, 255, 0.05); cursor: pointer; transition: all 0.2s ease; margin-bottom: 20px;">
+        <div style="font-size: 40px; margin-bottom: 10px; opacity: 0.8;">📥</div>
+        <h3 style="margin: 0 0 5px 0; color: var(--text);">Drag & Drop edited images here</h3>
+        <div class="text-xs text-muted">or click to browse files (accepts multiple images)</div>
+        <input type="file" id="importFileInput" multiple accept="image/*" class="hidden" />
+    </div>
+
+    <div class="panel-h" style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px;">Import Log</div>
+    <div style="max-height: 300px; overflow-y: auto; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 10px;">
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th width="35%">Filename</th>
+                    <th width="20%">Assigned Scene</th>
+                    <th width="45%">Status</th>
+                </tr>
+            </thead>
+            <tbody id="importLogTbody">
+                <tr><td colspan="3" class="text-center text-muted" style="padding: 20px;">No imports yet in this session.</td></tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div id="tab-timeline" class="content hidden">
+  <div class="panel">
+    <div class="panel-h flex justify-between items-center">
+      <span>1. Audio Track & Speech Alignment</span>
+      <span id="tlAudioStatusBadge" class="badge text-xs">No Audio Loaded</span>
+    </div>
+    
+    <!-- Audio Player & Track Management Bar -->
+    <div id="tlAudioPlayerCard" style="background: rgba(0,0,0,0.35); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 16px;">
+      <div class="flex items-center justify-between flex-wrap gap-10" style="margin-bottom: 10px;">
+        <div class="flex items-center gap-10">
+          <button id="tlBtnPlay" class="btn primary" style="min-width: 44px; height: 36px; font-size: 16px; font-weight: bold;" title="Play / Pause Audio">▶</button>
+          <button id="tlBtnStop" class="btn text-xs" style="height: 36px; padding: 0 12px;" title="Stop & Reset to 00:00">⏹ Stop</button>
+          <div id="tlTimeLabel" class="mono text-xs font-bold" style="background: rgba(0,0,0,0.5); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); min-width: 140px; text-align: center;">00:00.00 / 00:00.00</div>
+        </div>
+
+        <div class="flex items-center gap-10 flex-1" style="min-width: 250px;">
+          <input type="range" id="tlAudioSeek" min="0" max="100" value="0" step="0.1" style="flex: 1; accent-color: var(--accent); cursor: pointer; height: 6px;" />
+        </div>
+
+        <div class="flex items-center gap-8">
+          <button id="tlBtnMute" class="btn icon text-xs" title="Mute / Unmute">🔊</button>
+          <input type="range" id="tlVolumeSlider" min="0" max="1" step="0.05" value="1" style="width: 70px; accent-color: var(--accent); cursor: pointer;" title="Volume" />
+          <div style="width: 1px; height: 20px; background: var(--border); margin: 0 4px;"></div>
+          <button id="tlBtnUploadTrigger" class="btn good text-xs" style="padding: 8px 14px; font-weight: bold;">📁 Upload / Replace Audio</button>
+          <input type="file" id="tlAudioFile" accept="audio/*" class="hidden" />
+          <button id="tlBtnClearAudio" class="btn bad text-xs" title="Remove Audio Track">🗑️</button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between text-xs text-muted" style="padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.06);">
+        <div id="tlCurrentTrackInfo">🎵 Track: None selected</div>
+        <div>💡 Click any scene block below to jump playback directly to that scene</div>
+      </div>
+      <audio id="tlAudioElement" preload="metadata" class="hidden"></audio>
+    </div>
+
+        <!-- WhisperX Built-in GPU Engine Card -->
+    <div id="whisperxStatusCard" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+      <div class="flex items-center" style="gap: 12px; flex: 1; min-width: 260px;">
+        <div id="whisperxDot" style="width: 14px; height: 14px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 0 0 rgba(239,68,68,0.5); flex-shrink: 0; transition: background 0.4s;"></div>
+        <div>
+          <div id="whisperxStatusText" style="font-size: 13px; font-weight: 800; color: #fff; line-height: 1.2;">WhisperX: Offline</div>
+          <div id="whisperxStatusSub" class="text-xs text-muted" style="margin-top: 2px;">Click '▶ Launch WhisperX' or start alignment (launches automatically)</div>
+        </div>
+      </div>
+
+      <div class="flex items-center" style="gap: 10px; flex-wrap: wrap;">
+        <button id="btnLaunchWhisperX" class="btn primary" style="padding: 8px 16px; font-weight: 800; font-size: 13px; gap: 6px; display: flex; align-items: center;" onclick="window.launchWhisperX()">
+          <span id="whisperxBtnIcon">▶</span>
+          <span id="whisperxBtnLabel">Launch WhisperX</span>
+        </button>
+        <button id="btnStopWhisperX" class="btn bad text-xs" style="padding: 8px 14px; font-weight: 700; display: none;" onclick="window.stopWhisperX()">
+          ⏹ Stop
+        </button>
+        <button id="btnCheckWhisperX" class="btn text-xs" style="padding: 8px 12px;" title="Check WhisperX Server Status" onclick="window.checkWhisperXStatus()">
+          🔄 Ping Status
+        </button>
+      </div>
+    </div>
+
+    <div class="grid-wf" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div class="flex-col">
+         <div class="text-xs text-muted mb-2">Ensure WhisperX server is Online. WhisperX performs high-precision phoneme alignment against word-level timestamps.</div>
+         <button id="btnAlignTimeline" class="btn primary" style="padding:12px; font-size:14px; font-weight: bold; margin-top:auto">✨ Align / Generate Timestamps (WhisperX)</button>
+      </div>
+      <div class="flex-col">
+         <div class="field flex-1" style="height:100%">
+           <div class="flex justify-between items-center mb-1">
+              <label>Script (Ground Truth)</label>
+              <button id="btnConcatScript" class="btn text-xs">Use scenes text as script</button>
+           </div>
+           <textarea id="wScript" style="flex:1; font-family:var(--mono); min-height: 90px;" placeholder="Paste full narration script or auto-generate from scenes..."></textarea>
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+     <div class="panel-h">
+       <div>2. Timeline Preview & Export</div>
+       <div class="flex items-center gap-10">
+          <div class="field" style="flex-direction:row; align-items:center; gap:8px">
+             <label>Gap handling:</label>
+             <select id="tlGaps" style="width:120px">
+                <option value="extend">No Gaps (Extend)</option>
+                <option value="keep">Keep Gaps</option>
+             </select>
+          </div>
+          <div class="field" style="flex-direction:row; align-items:center; gap:8px">
+             <label>Min Length (s):</label>
+             <input type="number" id="tlMinLen" value="1.0" step="0.1" style="width:70px"/>
+          </div>
+          <button id="btnRebuildTimeline" class="btn primary text-xs">Rebuild Preview</button>
+          <button id="btnOpenVisualTimelineFromTab" type="button" class="btn text-xs" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35); font-weight: 700;" onclick="if(typeof window.openVisualTimelineStudio==='function') window.openVisualTimelineStudio();">🎞️ Expanded Timeline</button>
+          <div style="width:1px; height:20px; background:var(--border); margin:0 5px;"></div>
+          <button id="btnExportZip" class="btn good text-xs">Export DaVinci (ZIP)</button>
+       </div>
+     </div>
+
+     <!-- Visual Timeline with Interactive Scrubber & Playhead -->
+     <div id="tlVisual" style="height:48px; background:rgba(0,0,0,0.5); position:relative; overflow:hidden; border-radius:6px; margin-bottom:16px; border:1px solid var(--border); cursor: pointer;" title="Click anywhere to jump audio playback">
+        <div class="placeholder-view text-muted text-xs">Timeline preview will appear here</div>
+        <div id="tlPlayhead" style="position:absolute; top:0; bottom:0; left:0; width:2px; background:#fff; box-shadow: 0 0 8px rgba(255,255,255,0.9); z-index:20; pointer-events:none; transition: none; display:none;">
+          <div style="position:absolute; top:0; left:-4px; width:10px; height:10px; background:var(--accent); clip-path: polygon(0 0, 100% 0, 50% 100%);"></div>
+        </div>
+     </div>
+
+     <div style="overflow-x:auto">
+        <table>
+           <thead>
+              <tr>
+                  <th width="60">Scene ID</th>
+                  <th width="40%">Scene Text</th>
+                  <th width="80">Start</th>
+                  <th width="80">End</th>
+                  <th width="80">Duration</th>
+                  <th width="100">Status</th>
+                  <th width="70">Action</th>
+               </tr>
+           </thead>
+           <tbody id="tlTbody">
+              <tr><td colspan="7" class="text-center text-muted" style="padding:20px">No timeline built yet.</td></tr>
+           </tbody>
+        </table>
+     </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "scene_suffix": "Same art style: perfectly round slightly oversized white heads, solid white face, no nose, no ears, clean black outlines, white skin, minimalist aesthetic, high contrast, flat illustration style, 2D vector art look.",
+  "scene_negative": "speech bubbles, comic panels, floating text, typography, musical notes, music symbols, sound waves, nose, ears, nostrils, realistic skin texture, detailed facial features, facial shading, blurry, deformed, extra limbs, watermark, text, logo, split screen, multi-panel, collage, grid, diptych, triptych",
+  "character_negative": "speech bubbles, comic panels, floating text, typography, musical notes, music symbols, sound waves, blurry, low quality, deformed, extra limbs, bad anatomy, bad hands, watermark, text, logo, letters, subtitles, captions, signage, realistic skin texture, detailed facial features, nose, ears, nostrils, skin tones, realistic face, facial shading, detailed eyes",
+  "character_prompt_prefix": "make character in that exact style, neutral gray clothes, ",
+  "character_prompt_suffix": ", in the same art style",
+  "background_extras_prompt": "(with background people, all having solid white faces, small black dot eyes, thin black line mouth, no nose, no ears)",
+  "empty_scene_removals": [
+    "fully proportioned human bodies",
+    "perfectly round slightly oversized white heads",
+    "perfectly round white heads",
+    "solid white face",
+    "small black dot eyes",
+    "thin black line mouth",
+    "no nose",
+    "no ears"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}

@@ -1,0 +1,124 @@
+<div id="tab-images" class="content hidden">
+  <div class="panel" style="position:sticky; top:0; z-index:40; padding:12px 16px; margin-bottom:16px; display:flex; flex-direction:column; gap:12px;">
+    <!-- Row 0: Quick Visual Stage Switcher -->
+    <div class="flex items-center justify-between flex-wrap" style="gap:8px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div class="flex items-center flex-wrap" style="gap:6px;">
+        <span style="font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-right:4px;">Vaizdo etapas:</span>
+        <button type="button" class="btn active" style="font-size:11px; padding:4px 10px; border-radius:6px; font-weight:700;" title="Esamas vaizdų tinklelis su peržiūra">🖼️ Grid View</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Scenų lentelė, tekstai ir nustatymai" onclick="document.querySelector('.nav-item[data-tab=workflow]')?.click();">📋 Scene Matrix</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Greita kadrų atranka (Good / Bad)" onclick="document.querySelector('.nav-item[data-tab=review]')?.click();">🔍 QA & Curation</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Išorinių vaizdų importas (Modal)" onclick="if(typeof window.openExternalImportModal==='function') window.openExternalImportModal();">📥 Importas</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Laiko juosta ir Whisper sinchronizacija" onclick="document.querySelector('.nav-item[data-tab=timeline]')?.click();">🎞️ Timeline</button>
+      </div>
+      <div class="flex items-center" style="gap:8px;">
+        <div id="imagesProgressBox" class="flex items-center" style="gap:8px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:3px 10px; font-size:11.5px; cursor:pointer; user-select:none; transition:all 0.2s;" title="Scenų užpildymo progresas (paspauskite, kad filtruotumėte trūkstamas)">
+          <span style="font-size:13px;">📊</span>
+          <span style="color:var(--muted); font-size:11px; font-weight:600;">Completed:</span>
+          <strong id="imagesFilledCount" style="color:#00ffcc; font-size:12px; font-family:var(--mono);">0 / 0</strong>
+          <div style="width:75px; height:6px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; position:relative;">
+            <div id="imagesProgressBar" style="height:100%; width:0%; background:linear-gradient(90deg, #38bdf8, #00ffcc); transition:width 0.3s ease;"></div>
+          </div>
+          <span id="imagesPercentLabel" class="badge" style="font-size:10px; padding:1px 6px; font-weight:700;">0%</span>
+        </div>
+        <span style="font-size:11px; color:var(--accent); background:rgba(110,168,255,0.1); border:1px solid rgba(110,168,255,0.25); border-radius:12px; padding:2px 10px; font-weight:700;">Vaizdų studija</span>
+      </div>
+    </div>
+
+    <!-- Row 1: Filters & Downloads -->
+    <div class="flex justify-between items-center flex-wrap" style="gap:10px">
+      <div class="flex items-center" style="gap:10px">
+        <select id="imgFilter" style="width:140px">
+          <option value="all">All Scenes</option>
+          <option value="missing">Missing Outputs</option>
+          <option value="done">Generated</option>
+        </select>
+        <div class="search-wrapper">
+            <div class="search-icon">🔍</div>
+            <input type="text" id="imgSearch" placeholder="Search prompt/scene ID..." autocomplete="new-password" spellcheck="false" data-lpignore="true" oninput="this.parentNode.classList.toggle('has-text', this.value.trim() !== '')"/>                
+        </div>
+      </div>
+      <div class="flex items-center">
+        <span class="text-sm text-muted" style="margin-right:10px;">Downloads:</span>
+        <button id="btnDownloadAll" class="btn good">ZIP (Mains)</button>
+        <button id="btnDownloadVars" class="btn primary">ZIP (+Vars)</button>
+        <div style="width:1px; height:20px; background:var(--border); margin:0 5px;"></div>
+        <button id="btnGenMissing" class="btn primary">Generate Missing</button>
+        <button id="btnBatchGenerateVideos" class="btn" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color:#fff; border:none; margin-left:5px; font-weight:700;" title="Masinis video generavimas visoms ar trūkstamoms scenoms (su garsu / be garso pasirinkimu)">🎬 Gen Videos (Visiems)</button>
+        <label id="quickBatchModeLabel" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:12px; font-weight:700; color:#38bdf8; background:rgba(56,189,248,0.1); padding:4px 8px; border-radius:6px; border:1px solid rgba(56,189,248,0.3); margin-left:6px;" title="50% pigesnė kaina naudojant Google Cloud Batch režimą">
+          <input type="checkbox" id="quickBatchMode"> 💰 Batch (-50%)
+        </label>
+        <button id="btnClearAllImages" class="btn bad" style="margin-left:5px">Clear All</button>
+      </div>
+    </div>
+
+    <!-- Row 2: Quick Settings -->
+    <div class="flex items-center flex-wrap" style="gap:15px; padding-top:10px; border-top:1px solid var(--border);">
+      <div class="flex items-center" style="gap:6px">
+        <span class="text-xs text-muted font-mono" style="font-weight:700;">MODEL:</span>
+        <select id="quickModel" style="width:280px; padding:4px 8px; font-size:12px;">
+          <option value="nano_banana_2_flash|nano_banana_2_flash|none">🍌 Nano Banana 2 Flash (Cloud API)</option>
+          <option value="qwen_2_1|qwen_image_2.1_int8_convrot.safetensors|none" selected>Qwen Image 2.1 (Native 2.1 Architecture) [DEFAULT]</option>
+          <option value="latent_upscale|qwen_image_edit_2509_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2509 (Latent Upscale)</option>
+          <option value="latent_upscale|qwen_image_edit_2511_bf16.safetensors|Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2511 (New model & Latent Upscale)</option>
+          <option value="resize_pad|qwen_image_edit_2506_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2506-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2506 (Old model & Resize-Pad)</option>
+          <option value="custom">-- Custom / Other Model --</option>
+        </select>
+      </div>
+
+      <div class="flex items-center" style="gap:6px">
+        <span class="text-xs text-muted font-mono" style="font-weight:700;">RESOLUTION:</span>
+        <select id="quickRes" style="width:160px; padding:4px 8px; font-size:12px;">
+          <option value="1920x1080">1920 x 1080 (16:9)</option>
+          <option value="1080x1920">1080 x 1920 (9:16)</option>
+          <option value="1280x720">1280 x 720 (16:9)</option>
+          <option value="1024x1024">1024 x 1024 (1:1)</option>
+          <option value="1568x672">1568 x 672 (Wide Edit)</option>
+          <option value="672x1568">672 x 1568 (Tall Portrait)</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <div id="quickCustomResDiv" class="flex items-center hidden" style="gap:4px;">
+          <input type="number" id="quickW" placeholder="W" style="width:65px; padding:4px; font-size:12px;" />
+          <span class="text-xs text-muted">x</span>
+          <input type="number" id="quickH" placeholder="H" style="width:65px; padding:4px; font-size:12px;" />
+        </div>
+      </div>
+
+      <div class="flex items-center" style="gap:6px">
+        <span class="text-xs text-muted font-mono" style="font-weight:700;">STEPS:</span>
+        <input type="number" id="quickSteps" value="25" min="1" max="100" style="width:55px; padding:4px 8px; font-size:12px;" />
+      </div>
+
+      <div class="flex items-center" style="gap:6px">
+        <span class="text-xs text-muted font-mono" style="font-weight:700;">CFG:</span>
+        <input type="number" id="quickCfg" value="1.0" min="0.1" max="20" step="0.5" style="width:55px; padding:4px 8px; font-size:12px;" />
+      </div>
+      
+      <div style="flex:1"></div>
+      
+      <span class="text-xs text-muted" id="quickStatusLabel" style="font-style:italic;">Settings synced</span>
+    </div>
+
+    <!-- Row 3: Custom Model fields (only shown when Model is custom) -->
+    <div id="quickCustomModelDiv" class="flex flex-col hidden" style="gap:8px; padding-top:8px; border-top:1.5px dashed var(--border);">
+      <div class="flex items-center flex-wrap" style="gap:12px;">
+        <div class="flex items-center" style="gap:4px">
+          <span class="text-xs text-muted">Workflow Mode:</span>
+          <select id="quickWfMode" style="width:130px; padding:4px 8px; font-size:12px;">
+            <option value="qwen_2_1">Qwen 2.1 (Native)</option>
+            <option value="latent_upscale">Latent Upscale</option>
+            <option value="resize_pad">Resize & Pad</option>
+          </select>
+        </div>
+        <div class="flex items-center" style="gap:4px">
+          <span class="text-xs text-muted">UNET Model:</span>
+          <input type="text" id="quickUnet" placeholder="unet_model.safetensors" style="width:230px; padding:4px 8px; font-size:12px;" />
+        </div>
+        <div class="flex items-center" style="gap:4px">
+          <span class="text-xs text-muted">LoRA Model:</span>
+          <input type="text" id="quickLora" placeholder="lora_model.safetensors" style="width:230px; padding:4px 8px; font-size:12px;" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="imagesGrid" class="grid-img"></div>
+</div>

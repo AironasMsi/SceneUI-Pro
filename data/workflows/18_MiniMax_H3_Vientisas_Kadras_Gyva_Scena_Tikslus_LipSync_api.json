@@ -1,0 +1,406 @@
+{
+  "102": {
+    "class_type": "ComfyMathExpression",
+    "inputs": {
+      "values.a": [
+        "101",
+        0
+      ],
+      "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+    },
+    "_meta": {
+      "title": "Auto Frames Calc"
+    }
+  },
+  "1733": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 39
+    },
+    "_meta": {
+      "title": "Auto Audio Latent Scale"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "type": "minimax"
+    },
+    "_meta": {
+      "title": "5. Load CLIP (Qwen3-VL 32B)"
+    }
+  },
+  "1753": {
+    "class_type": "ComfyMathExpression",
+    "inputs": {
+      "values.a": [
+        "1733",
+        0
+      ],
+      "values.b": [
+        "102",
+        1
+      ],
+      "expression": "max(5, min(a, (b - (b % 2)) / 2)) - ((max(5, min(a, (b - (b % 2)) / 2)) - 5) % 17)"
+    },
+    "_meta": {
+      "title": "Auto Step Sync"
+    }
+  },
+  "5": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "977",
+        0
+      ],
+      "shift_video": 12,
+      "shift_audio": 3
+    },
+    "_meta": {
+      "title": "4. H3 Sigma Shift"
+    }
+  },
+  "977": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "1756",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+      "strength_model": 1
+    },
+    "_meta": {
+      "title": "2. Turbo LoRA (8-Step)"
+    }
+  },
+  "2291": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "124",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "🖼️ VAE Decode (Kadrų iškodavimas)"
+    }
+  },
+  "910": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "s2_20261026045504.jpg"
+    },
+    "_meta": {
+      "title": "🖼️ 1. PILNA DIDELĖ SCENA (Bendra Nuotrauka su Visais Veikėjais)"
+    }
+  },
+  "2510": {
+    "class_type": "MiniMaxH3AudioVAECompatibility",
+    "inputs": {
+      "audio_vae": [
+        "4",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "8. Audio VAE Compatibility"
+    }
+  },
+  "2293": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": [
+        "2291",
+        0
+      ],
+      "audio": [
+        "1755",
+        2
+      ],
+      "frame_rate": 24,
+      "loop_count": 0,
+      "filename_prefix": "H3_LipSync",
+      "format": "video/h264-mp4",
+      "pingpong": false,
+      "save_output": true
+    },
+    "_meta": {
+      "title": "🎬 GALUTINIS VIENTISAS GYVAS VIDEO SU GARSU (.MP4)"
+    }
+  },
+  "124": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "120",
+        0
+      ],
+      "guider": [
+        "121",
+        0
+      ],
+      "sampler": [
+        "973",
+        0
+      ],
+      "sigmas": [
+        "123",
+        0
+      ],
+      "latent_image": [
+        "1755",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "⚡ Sampleris (Vaizdo Generavimas)"
+    }
+  },
+  "1756": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "attention": "comfy kitchen attention"
+    },
+    "_meta": {
+      "title": "3. Attention Backend"
+    }
+  },
+  "123": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "5",
+        0
+      ],
+      "steps": [
+        "970",
+        0
+      ],
+      "scheduler": "simple",
+      "denoise": 1.0
+    },
+    "_meta": {
+      "title": "Scheduler (Simple)"
+    }
+  },
+  "101": {
+    "class_type": "PrimitiveFloat",
+    "inputs": {
+      "value": 3.0
+    },
+    "_meta": {
+      "title": "⏱️ Trukmė Sekundėmis (pvz. 2.0 arba 3.0)"
+    }
+  },
+  "1738": {
+    "class_type": "ComfyMathExpression",
+    "inputs": {
+      "values.a": [
+        "1736",
+        0
+      ],
+      "expression": "a * 0"
+    },
+    "_meta": {
+      "title": "Auto Context Span"
+    }
+  },
+  "1755": {
+    "class_type": "MiniMaxH3SongMaskedAVContext",
+    "inputs": {
+      "latent": [
+        "110",
+        1
+      ],
+      "audio_vae": [
+        "2510",
+        0
+      ],
+      "master_audio": [
+        "940",
+        0
+      ],
+      "clip_start_seconds": [
+        "1738",
+        0
+      ],
+      "context_length": 0.0,
+      "source_fps": 24.0,
+      "crop": "disabled",
+      "audio_start_seconds": 0.0
+    },
+    "_meta": {
+      "title": "🎵 H3 Garso ir Lūpų Sinchronizacija"
+    }
+  },
+  "1736": {
+    "class_type": "ComfyMathExpression",
+    "inputs": {
+      "values.a": [
+        "102",
+        1
+      ],
+      "values.b": [
+        "1753",
+        1
+      ],
+      "expression": "(a - b) / 24"
+    },
+    "_meta": {
+      "title": "Auto Grid Timing"
+    }
+  },
+  "940": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "chunk_default_full_script_11_cb8351.wav"
+    },
+    "_meta": {
+      "title": "🎵 3. GARSO TAKELIS (.wav Kalba ar Daina)"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+    },
+    "_meta": {
+      "title": "6. Load Video VAE"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    },
+    "_meta": {
+      "title": "7. Load Audio VAE"
+    }
+  },
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "1. Load UNET (MiniMax H3)"
+    }
+  },
+  "121": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "5",
+        0
+      ],
+      "conditioning": [
+        "110",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "Guider (CFG)"
+    }
+  },
+  "970": {
+    "class_type": "PrimitiveInt",
+    "inputs": {
+      "value": 8
+    },
+    "_meta": {
+      "title": "Žingsniai (Rekomenduojama 8)"
+    }
+  },
+  "100": {
+    "class_type": "ResolutionSelector",
+    "inputs": {
+      "aspect_ratio": "9:16 (Portrait Widescreen)",
+      "megapixels": 1.0,
+      "multiple": 32
+    },
+    "_meta": {
+      "title": "📐 Kraštinių Santykis (Rezoliucija)"
+    }
+  },
+  "120": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 514005817509111
+    },
+    "_meta": {
+      "title": "Noise Seed"
+    }
+  },
+  "110": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "width": [
+        "100",
+        0
+      ],
+      "height": [
+        "100",
+        1
+      ],
+      "length": [
+        "102",
+        1
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "audio_vae": [
+        "2510",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "910",
+        0
+      ],
+      "ref_images.ref_image_1": [
+        "911",
+        0
+      ],
+      "prompt": "subject_definitions:\n<Picture 1> is the complete wide scene with both characters and the sci-fi environment.\n<Subject 1> is the primary speaking character, whose identity and facial appearance matches <Picture 2>.\n<Subject 2> is the companion character present in <Picture 1>.\n<Audio 1> is the speech audio track driving the lip sync.\n\nsummary:\n[cinematic living wide scene animation] Animate the complete wide scene from <Picture 1>. <Subject 1> (identified by <Picture 2>) speaks actively and expressively with natural mouth movement and head gesture perfectly synchronized to <Audio 1>. Concurrently, <Subject 2> and the full background remain naturally alive and dynamic: <Subject 2> blinks, breathes, and reacts with natural idle body language, while the background monitors and holographic display hum with ambient sci-fi lighting.\n\nretention_analysis:\n<Picture 1>: fully_preserved - preserve the clean linework, art style, room architecture, and character designs from <Picture 1>.\n<Subject 1>: active_speaker - expressively animate mouth articulation, lips, and jaw matching <Audio 1>, with natural speaking head movement.\n<Subject 2>: responsive_listener - natural breathing, eye blinking, idle shifts in posture, attentive listening, mouth remains closed.\n\ndetailed_description:\nA high quality cinematic wide-angle animation of <Picture 1>. The character matching <Picture 2> speaks expressively in cadence with <Audio 1>. The secondary character naturally blinks and shifts posture while observing. The computer screens and holographic table graphics pulse with gentle sci-fi illumination.\n",
+      "ref_image_size": "match"
+    },
+    "_meta": {
+      "title": "🎬 MiniMax H3 Vientisas Gyvas Kadras + LipSync"
+    }
+  },
+  "973": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "res_multistep"
+    },
+    "_meta": {
+      "title": "Sampleris (Euler / DPMPP)"
+    }
+  },
+  "911": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "MARCUS_whitestickman_lead.png_20261027184602.jpg"
+    },
+    "_meta": {
+      "title": "🎯 2. KALBANTIS PERSONAŽAS (Veikėjo Pavyzdys - Ref)"
+    }
+  }
+}

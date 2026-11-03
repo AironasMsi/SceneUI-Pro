@@ -1,0 +1,37 @@
+{
+  "26": {
+    "inputs": {
+      "filename_prefix": "audio/ComfyUI_Design",
+      "audio": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "SaveAudio",
+    "_meta": {
+      "title": "Save Audio (FLAC)"
+    }
+  },
+  "38": {
+    "inputs": {
+      "text": "Tekstas bus pakeistas per API",
+      "instruct": "Aprašymas bus pakeistas per API",
+      "model_choice": "1.7B",
+      "device": "auto",
+      "precision": "bf16",
+      "language": "Auto",
+      "seed": 123456789,
+      "max_new_tokens": 2048,
+      "top_p": 0.8,
+      "top_k": 20,
+      "temperature": 1,
+      "repetition_penalty": 1.05,
+      "attention": "eager",
+      "unload_model_after_generate": false
+    },
+    "class_type": "FB_Qwen3TTSVoiceDesign",
+    "_meta": {
+      "title": "🎨 Qwen3-TTS VoiceDesign"
+    }
+  }
+}

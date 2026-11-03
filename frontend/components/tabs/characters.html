@@ -1,0 +1,89 @@
+<div id="tab-characters" class="content hidden">
+  <div class="panel">
+    <div class="panel-h">Base Template Library</div>
+    <div class="grid-wf" style="grid-template-columns: repeat(4, 1fr); gap:15px;" id="baseLibraryGrid">
+    </div>
+    <div class="flex justify-between items-center mt-3 pt-3" style="border-top:1px solid var(--border)">
+      <div class="text-xs text-muted">Aptinkami failai 'base/' aplanke: base_male.png, base_female.png, base_teen.png, base_kid.png</div>
+      <div class="flex">
+        <button id="btnCheckBases" class="btn text-xs">Re-check</button>
+        <button id="btnUploadBases" class="btn good text-xs">Upload Bases to Server</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel" style="padding:12px 16px; display:flex; flex-direction:column; gap:10px;">
+    <!-- Viršutinė eilutė: Grįžimas, stilius, modelis, proporcijos ir įkėlimo mygtukai -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div class="flex items-center" style="gap:10px; flex-wrap:wrap;">
+        <button id="btnBackToLLMChars" class="btn warn text-xs" onclick="window.sendCharsToLLM()">← Back to LLM</button>
+        <strong class="text-sm">Character References</strong>
+        
+        <div style="display:inline-flex; align-items:center; gap:6px;">
+          <span class="text-xs text-muted font-mono" style="font-weight:700;">BASE STYLE:</span>
+          <select id="charBaseStyle" style="min-width:160px; max-width:240px; padding:4px 8px; font-size:12px; font-weight:700;">
+            <option value="default">Default 2D Style</option>
+          </select>
+        </div>
+        
+        <div style="display:inline-flex; align-items:center; gap:6px;">
+          <span class="text-xs text-muted font-mono" style="font-weight:700;">MODEL:</span>
+          <select id="charModel" style="width:230px; padding:4px 8px; font-size:12px;">
+            <option value="nano_banana_2_flash|nano_banana_2_flash|none">🍌 Nano Banana 2 Flash (Cloud API)</option>
+            <option value="qwen_2_1|qwen_image_2.1_int8_convrot.safetensors|none" selected>Qwen Image 2.1 (Native 2.1 Architecture) [DEFAULT]</option>
+            <option value="latent_upscale|qwen_image_edit_2509_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2509-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2509 (Latent Upscale)</option>
+            <option value="latent_upscale|qwen_image_edit_2511_bf16.safetensors|Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2511 (New model & Latent Upscale)</option>
+            <option value="resize_pad|qwen_image_edit_2506_fp8_e4m3fn.safetensors|Qwen-Image-Edit-2506-Lightning-4steps-V1.0-bf16.safetensors">Qwen 2506 (Old model & Resize-Pad)</option>
+            <option value="custom">-- Custom / Other Model --</option>
+          </select>
+        </div>
+
+        <div class="flex items-center" style="gap:6px;">
+          <span class="text-xs text-muted font-mono" style="font-weight:700;">STEPS:</span>
+          <input type="number" id="charSteps" value="25" min="1" max="100" style="width:55px; padding:4px 6px; font-size:12px; font-weight:700;" title="Global Steps for Characters" />
+        </div>
+
+        <div class="flex items-center" style="gap:6px;">
+          <span class="text-xs text-muted font-mono" style="font-weight:700;">CFG:</span>
+          <input type="number" id="charCfg" value="1.0" min="0.1" max="20" step="0.5" style="width:55px; padding:4px 6px; font-size:12px; font-weight:700;" title="Global CFG for Characters" />
+        </div>
+        
+        <div style="display:inline-flex; align-items:center; gap:6px;">
+          <span class="text-xs text-muted font-mono" style="font-weight:700;">RATIO:</span>
+          <select id="charAspectRatio" style="width:125px; padding:4px 6px; font-size:12px; font-weight:700;">
+            <option value="tall" selected>Tall (672x1568)</option>
+            <option value="2:3">2:3 (832x1248)</option>
+            <option value="9:16">9:16 (768x1344)</option>
+            <option value="1:1">1:1 (1024x1024)</option>
+            <option value="3:4">3:4 (896x1152)</option>
+            <option value="16:9">16:9 (1344x768)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="flex items-center" style="gap:6px;">
+        <button id="btnLoadCharJson" class="btn primary text-xs">Load Character JSON</button>
+        <button id="btnLoadCharDemo" class="btn text-xs">Load Demo Characters</button>
+        <button id="btnUploadCustomChar" class="btn good text-xs">📤 Upload Custom Ref</button>
+      </div>
+    </div>
+    
+    <!-- Apatinė eilutė: Generavimas, patvirtinimas ir atsisiuntimas / išvalymas -->
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06);">
+      <div class="flex items-center" style="gap:10px;">
+        <button id="btnGenMissingChars" class="btn primary">Generate Missing Templates</button>
+        <label id="charBatchModeLabel" style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:12px; font-weight:700; color:#38bdf8; background:rgba(56,189,248,0.1); padding:4px 8px; border-radius:6px; border:1px solid rgba(56,189,248,0.3);" title="50% pigesnė kaina naudojant Google Cloud Batch režimą">
+          <input type="checkbox" id="charBatchMode"> 💰 Batch (-50%)
+        </label>
+        <div style="width:1px; height:20px; background:var(--border); margin:0 2px;"></div>
+        <button id="btnCommitChars" class="btn good">Commit Selected Mains to References</button>
+      </div>
+      <div class="flex items-center" style="gap:6px;">
+        <button id="btnDownloadAllChars" class="btn good text-xs">Download All</button>
+        <button id="btnClearAllChars" class="btn bad text-xs">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="charRefsGrid" class="grid-img"></div>
+</div>

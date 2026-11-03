@@ -1,0 +1,19 @@
+{
+  "scene_suffix": "Pixar Disney 3D animation style, soft volumetric lighting, subsurface scattering on skin, expressive large lively eyes, smooth stylized shapes, rich color grading, octane render 8k look, charming cinematic atmosphere.",
+  "scene_negative": "photorealistic, real photo, 2d flat, grotesque, deformed, blurry, bad anatomy, harsh dark shadows, grain, noise, low quality, watermark, text, signature",
+  "character_negative": "close-up, bust shot, headshot, portrait framing, cropped legs, cut off legs, cropped feet, out of frame legs, photorealistic, real photo, 2d anime, flat illustration, ugly, deformed, extra fingers, malformed limbs, blurry, dark, grain, watermark, logo, text, speech bubbles",
+  "character_prompt_prefix": "make character in that exact style, neutral gray clothes, ",
+  "character_prompt_suffix": ", in the same art style",
+  "background_extras_prompt": "(with background stylized 3d animated people, soft friendly features, matching Pixar animation aesthetic)",
+  "empty_scene_removals": [
+    "peach skin",
+    "solid white face",
+    "fully proportioned human bodies"
+  ],
+  "base_templates": {
+    "male": "pixar_3d_base_male.png",
+    "female": "pixar_3d_base_female.png",
+    "teen": "pixar_3d_base_teen.png",
+    "kid": "pixar_3d_base_kid.png"
+  }
+}

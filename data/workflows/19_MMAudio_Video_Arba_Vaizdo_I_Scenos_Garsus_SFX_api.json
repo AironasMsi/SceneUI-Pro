@@ -1,0 +1,121 @@
+{
+  "91": {
+    "class_type": "VHS_LoadVideo",
+    "inputs": {
+      "video": "ComfyUI_00415_.mp4",
+      "force_rate": 0,
+      "force_size": "Disabled",
+      "frame_load_cap": 0,
+      "skip_first_frames": 0,
+      "select_every_nth": 1,
+      "custom_width": 512,
+      "custom_height": 512
+    },
+    "_meta": {
+      "title": "VHS_LoadVideo"
+    }
+  },
+  "105": {
+    "class_type": "VHS_VideoInfo",
+    "inputs": {
+      "video_info": [
+        "91",
+        3
+      ]
+    },
+    "_meta": {
+      "title": "VHS_VideoInfo"
+    }
+  },
+  "85": {
+    "class_type": "MMAudioModelLoader",
+    "inputs": {
+      "mmaudio_model": "mmaudio_large_44k_v2_fp16.safetensors",
+      "base_precision": "fp16"
+    },
+    "_meta": {
+      "title": "MMAudioModelLoader"
+    }
+  },
+  "102": {
+    "class_type": "MMAudioFeatureUtilsLoader",
+    "inputs": {
+      "vae_model": "mmaudio_vae_44k_fp16.safetensors",
+      "synchformer_model": "mmaudio_synchformer_fp16.safetensors",
+      "clip_model": "apple_DFN5B-CLIP-ViT-H-14-384_fp16.safetensors",
+      "mode": "44k",
+      "precision": "fp16"
+    },
+    "_meta": {
+      "title": "MMAudioFeatureUtilsLoader"
+    }
+  },
+  "92": {
+    "class_type": "MMAudioSampler",
+    "inputs": {
+      "mmaudio_model": [
+        "85",
+        0
+      ],
+      "feature_utils": [
+        "102",
+        0
+      ],
+      "images": [
+        "91",
+        0
+      ],
+      "duration": [
+        "105",
+        7
+      ],
+      "steps": 15,
+      "cfg": 4.5,
+      "seed": 42,
+      "prompt": "deep industrial server room hum, CRT monitor high pitch tone, quiet electronic beeps, zero speech, zero music",
+      "negative_prompt": "music, singing, speech, dialogue, words, vocals, clipping, distortion, robotic noise",
+      "mask_away_clip": false,
+      "force_offload": true
+    },
+    "_meta": {
+      "title": "MMAudioSampler"
+    }
+  },
+  "98": {
+    "class_type": "PreviewAudio",
+    "inputs": {
+      "audio": [
+        "92",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "PreviewAudio"
+    }
+  },
+  "97": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": [
+        "91",
+        0
+      ],
+      "audio": [
+        "92",
+        0
+      ],
+      "frame_rate": [
+        "105",
+        0
+      ],
+      "loop_count": 0,
+      "filename_prefix": "MMAudio_SFX",
+      "format": "video/h264-mp4",
+      "pingpong": false,
+      "save_output": true
+    },
+    "_meta": {
+      "title": "VHS_VideoCombine"
+    }
+  }
+}

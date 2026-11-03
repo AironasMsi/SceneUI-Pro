@@ -1,0 +1,20 @@
+{
+  "displayName": "\ud83c\udf06 Cyberpunk Neon Noir",
+  "scene_suffix": "Cyberpunk neo-noir aesthetic, dystopian metropolis, glowing neon signage, wet asphalt reflections, volumetric fog, dramatic chiaroscuro lighting, high contrast cyan and magenta palette, Blade Runner 2049 cinematography, 8k.",
+  "scene_negative": "bright sunny daytime, pastel colors, cartoon, flat, low quality, washed out, blurry, watermark",
+  "character_negative": "cartoon, flat drawing, sunny, cheerful, deformed face, bad hands, low resolution, watermark",
+  "character_prompt_prefix": "Cyberpunk character portrait, techwear cybernetic details, neon rim lighting, ",
+  "character_prompt_suffix": ", high-tech urban aesthetic, cinematic 8k.",
+  "background_extras_prompt": "(cyberpunk street crowds with holographic umbrellas and cybernetic implants)",
+  "empty_scene_removals": [
+    "stickman",
+    "pastels",
+    "cartoon"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}

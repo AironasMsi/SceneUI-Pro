@@ -1,0 +1,80 @@
+<aside class="sidebar" id="appSidebar">
+  <div class="brand">
+    <div class="logo" title="Scene UI Pro"></div>
+    <span class="brand-text">Scene UI Pro</span>
+    <button id="btnToggleSidebar" class="btn-sidebar-toggle" title="Collapse / Expand Sidebar (Ctrl+B)">◀</button>
+  </div>
+  
+  <div class="project-manager">
+    <label>WORKSPACE (PROJECT)</label>
+    
+    <div style="position:relative; margin-bottom: 8px;">
+      <div id="workspaceDropdown" style="background:rgba(0,0,0,0.4); border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-weight:700; font-size:13px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition: border-color 0.2s;" title="Switch or manage active workspace">
+          <span id="currentProjectName" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Main Project</span>
+          <span style="color:var(--muted); font-size:10px;">▼</span>
+      </div>
+      <div id="projectList" class="hidden" style="position:absolute; top:100%; left:0; right:0; background:var(--panel2); border:1px solid var(--border); border-radius:8px; z-index:200; margin-top:4px; max-height:220px; overflow-y:auto; box-shadow:var(--shadow); display:flex; flex-direction:column; padding:4px 0;">
+      </div>
+    </div>
+
+    <div class="flex items-center" style="gap:4px">
+      <button id="btnNewProject" class="btn flex-1 text-xs" title="Create New Project">New</button>
+      <button id="btnRenameProject" class="btn flex-1 text-xs" title="Rename Active Project">Rename</button>
+      <button id="btnDeleteProject" class="btn bad icon" title="Delete Active Project">✕</button>
+    </div>
+  </div>
+
+  <nav class="nav-menu">
+    <div class="nav-category">Pre-Production</div>
+    <div class="nav-item" data-tab="script" title="1. Script Decomposition & LLM">
+      <span class="nav-icon">📝</span>
+      <span class="nav-text">1. Script & LLM</span>
+    </div>
+    <div class="nav-item" data-tab="workflow" title="2. Scene Matrix & Parameters">
+      <span class="nav-icon">📋</span>
+      <span class="nav-text">2. Scene Matrix</span>
+    </div>
+    <div class="nav-item" data-tab="style_lab" title="Base Style & Visual DNA Studio">
+      <span class="nav-icon">🎨</span>
+      <span class="nav-text">🎨 Style Studio</span>
+    </div>
+    <div class="nav-item" data-tab="characters" title="3. Character Casting & Identity">
+      <span class="nav-icon">🎭</span>
+      <span class="nav-text">3. Character Casting</span>
+    </div>
+    <div class="nav-item active" data-tab="audio" title="4. Audio & Voice Synthesis">
+      <span class="nav-icon">🎙️</span>
+      <span class="nav-text">4. Voice & Audio</span>
+    </div>
+    
+    <div class="nav-category">Visual Production</div>
+    <div class="nav-item" data-tab="images" title="5. Visual Synthesis Studio">
+      <span class="nav-icon">🖼️</span>
+      <span class="nav-text">5. Visual Engine</span>
+      <span id="navImagesBadge" class="nav-badge" style="margin-left:auto; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px; background:rgba(255,255,255,0.08); color:var(--muted); font-family:var(--mono);" title="Populated scenes count">0/0</span>
+    </div>
+    <div class="nav-item" data-tab="review" title="6. Review & Curation (QA)">
+      <span class="nav-icon">🔍</span>
+      <span class="nav-text">6. QA & Curation</span>
+    </div>
+    
+    <div class="nav-category">Post-Production & Export</div>
+    <div class="nav-item" data-tab="timeline" title="7. Timeline & Synchronization">
+      <span class="nav-icon">⏱️</span>
+      <span class="nav-text">7. Timeline & Sync</span>
+    </div>
+    <div class="nav-item" data-tab="render" title="8. Master Video Studio & Export">
+      <span class="nav-icon">🎬</span>
+      <span class="nav-text">8. Video Studio</span>
+    </div>
+  </nav>
+
+  <div style="flex:1"></div>
+
+  <div class="system-controls">
+    <button id="btnFactoryReset" class="btn bad text-xs" style="width:100%; justify-content:center" title="Reset system to default settings">
+      <span>⚠️ Factory Reset System</span>
+      <span class="icon-only hidden">⚠️</span>
+    </button>
+  </div>
+</aside>

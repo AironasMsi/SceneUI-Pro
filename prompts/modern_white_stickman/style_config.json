@@ -1,0 +1,22 @@
+{
+  "displayName": "\u26a1 Modern White Stickman Vector",
+  "scene_suffix": "Modern white stickman vector animation cinematic style, clean minimalist urban background, crisp vector lines, elegant flat color blocks, full edge-to-edge solid illustrated background, zero white void, 16:9 framing.",
+  "scene_negative": "3D CGI render, photorealism, real life people, realistic human skin pores, live action, uncanny valley, extra limbs, deformed hands, watermark, logo, text, words, captions, lower thirds, speech bubble, dialogue box, letters, typography, white background, plain background, white void, blank canvas, isolated, cutout, floating in void, vignette",
+  "character_negative": "character sheet, model sheet, turnaround sheet, split screen, multiple views, multiple angles, two people, couple, pair, group, multiple characters, photo grid, collage, 3D CGI render, realistic human skin pores, photorealism, realistic face, detailed anatomy, live action, extra limbs, horizontal framing, 16:9, white background, white void, blank canvas, isolated",
+  "character_prompt_prefix": "Modern white stickman vector character portrait, ",
+  "character_prompt_suffix": ", pure white clean background, isolated single character, full body shot, standing in a relaxed neutral stickman pose, vertical 9:16 framing, zero 3D render, zero realism.",
+  "background_extras_prompt": "(with distant background white stickman silhouettes in matching clean vector art style)",
+  "empty_scene_removals": [
+    "peach skin",
+    "solid white face",
+    "fully proportioned human bodies",
+    "character",
+    "people"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}

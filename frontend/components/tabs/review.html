@@ -1,0 +1,137 @@
+<div id="tab-review" class="content hidden">
+  <div class="panel" style="position:sticky; top:0; z-index:40; padding:12px 16px; margin-bottom:16px; display:flex; flex-direction:column; gap:10px;">
+    <!-- Row 0: Quick Visual Stage Switcher -->
+    <div class="flex items-center justify-between flex-wrap" style="gap:8px; padding-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.06);">
+      <div class="flex items-center flex-wrap" style="gap:6px;">
+        <span style="font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-right:4px;">Vaizdo etapas:</span>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Visual Grid" onclick="document.querySelector('.nav-item[data-tab=images]')?.click();">🖼️ Grid View</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Scenų lentelė" onclick="document.querySelector('.nav-item[data-tab=workflow]')?.click();">📋 Scene Matrix</button>
+        <button type="button" class="btn active" style="font-size:11px; padding:4px 10px; border-radius:6px; font-weight:700;" title="Greita kadrų atranka (Good / Bad)">🔍 QA & Curation</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px; background: rgba(110,168,255,0.12); color: var(--accent);" title="Išorinių vaizdų importas (Modal)" onclick="if(typeof window.openExternalImportModal==='function') window.openExternalImportModal();">📥 External Ingest</button>
+        <button type="button" class="btn" style="font-size:11px; padding:4px 10px; border-radius:6px;" title="Laiko juosta" onclick="document.querySelector('.nav-item[data-tab=timeline]')?.click();">🎞️ Timeline</button>
+      </div>
+      <div class="flex items-center" style="gap:8px;">
+        <span style="font-size:11px; color:var(--good); background:rgba(78,226,163,0.1); border:1px solid rgba(78,226,163,0.25); border-radius:12px; padding:2px 10px; font-weight:700;">Curation Mode</span>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center flex-wrap" style="gap:10px">
+      <div class="flex" style="gap:10px">
+        <button class="btn active" id="btnRevAll">All (<span id="countRevAll">0</span>)</button>
+        <button class="btn good" id="btnRevGood">Good (<span id="countRevGood">0</span>)</button>
+        <button class="btn bad" id="btnRevBad">Bad (<span id="countRevBad">0</span>)</button>
+        <button class="btn warn" id="btnRevUnlisted">Unlisted (<span id="countRevUn">0</span>)</button>
+      </div>
+    
+    <div class="flex items-center" style="gap:10px;">
+        <div id="revShortcutText" class="flex items-center" style="gap:15px;">
+            <div class="text-xs text-muted flex items-center gap-1"><kbd>G</kbd> Good</div>
+            <div class="text-xs text-muted flex items-center gap-1"><kbd>B</kbd> Bad</div>
+            <div class="text-xs text-muted flex items-center gap-1"><kbd>←</kbd><kbd>→</kbd> Navigate</div>
+            <div class="text-xs text-muted flex items-center gap-1"><kbd>ESC</kbd> Grid</div>
+        </div>
+        <div style="width:1px; height:20px; background:var(--border); margin:0 5px;"></div>
+        <button id="btnOpenImportFromReview" type="button" class="btn" style="background: rgba(110,168,255,0.15); color: var(--accent); border-color: rgba(110,168,255,0.4); font-weight: 700; font-size: 11.5px;" onclick="if(typeof window.openExternalImportModal==='function') window.openExternalImportModal();" title="Įkelti išorėje patobulintus kadrus į scenas">📥 External Ingest...</button>
+        <button id="btnDownloadReview" class="btn primary" style="min-width:130px; font-size: 11.5px;">⬇ Download ZIP</button>
+    </div>
+  </div>
+  </div>
+
+  <div id="reviewGrid" class="grid-img"></div>
+  <div id="reviewEmpty" class="text-muted text-center" style="margin: 40px auto; padding: 20px; background: var(--panel); border-radius: 12px;">No images available for review in active filter.</div>
+
+  <div id="reviewDetail" class="hidden" style="position:fixed; inset:0; z-index:9999; background:#07090e; display:grid; grid-template-columns: 1fr 340px; overflow:hidden;">
+    
+    <div id="revMainCol" style="padding:24px 36px; display:flex; flex-direction:column; align-items:center; overflow-y:auto; height:100vh; position:relative;">
+        
+        <div id="reviewEndScreen" class="hidden" style="margin:auto; text-align:center;">
+             <h1 style="font-size:48px; margin-bottom:12px;">🏁</h1>
+             <h2 style="font-size:26px; font-weight:800; margin-bottom:10px; color:#fff;">Atranka Baigta!</h2>
+             <p class="text-muted mb-4">Visi šio filtro kadrai peržiūrėti.</p>
+             <button class="btn primary" style="padding:12px 24px; font-weight:bold;" onclick="window.reviewIndex=0; window.updateReviewUI();">Pradėti iš naujo</button>
+             <div style="margin-top:20px;"><button class="btn" onclick="window.closeReviewDetail()">← Grįžti į kadrų tinklelį (ESC)</button></div>
+        </div>
+
+        <div id="revDetailContent" style="width:100%; max-width:1100px; display:flex; flex-direction:column; align-items:center;">
+             
+             <!-- Top Bar in Fullscreen Theater -->
+             <div style="width: 100%; display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <button class="btn" id="btnRevBack" style="background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.18); font-weight:700; font-size:12px;">← Grįžti į tinklelį (ESC)</button>
+                
+                <div class="flex items-center" style="gap:10px;">
+                    <h2 id="revTitle" style="margin:0; font-size:20px; font-weight:800; letter-spacing:1px; color:#fff;">Scene S1</h2>
+                    <span id="revIndexBadge" class="mono text-xs" style="color:#38bdf8; background:rgba(56,189,248,0.15); padding:3px 8px; border-radius:6px; font-weight:700;">1 / 1</span>
+                </div>
+                
+                <div class="flex items-center" style="gap:8px;">
+                    <div id="revStatusBadge" class="badge" style="padding:6px 14px; font-size:12px; font-weight:800;">UNLISTED</div>
+                    <button type="button" class="btn icon" style="background:rgba(255,255,255,0.08); font-size:16px; width:32px; height:32px;" onclick="window.closeReviewDetail()" title="Uždaryti (ESC)">✕</button>
+                </div>
+             </div>
+
+              <!-- Main Image Stage with Click-to-Zoom -->
+              <div id="revImageWrap" style="position:relative; width:100%; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.6); border-radius:12px; padding:12px; border:1px solid rgba(255,255,255,0.06); min-height:50vh; overflow:hidden; cursor:zoom-in;" title="Spustelėkite bet kurioje vietoje prisiartinimui (Click to zoom)">
+                 <img id="revImage" src="" style="max-width:100%; max-height:64vh; border-radius:8px; object-fit:contain; box-shadow:0 25px 60px rgba(0,0,0,0.95); transition:transform 0.2s ease; transform-origin:center center; user-select:none;" draggable="false" />
+                 <div id="revZoomHint" style="position:absolute; bottom:14px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,0.8); color:#e2e8f0; font-size:11px; font-weight:600; padding:4px 14px; border-radius:20px; pointer-events:none; border:1px solid rgba(255,255,255,0.18); transition:opacity 0.2s; white-space:nowrap;">🔍 Spustelėkite norimoje vietoje prisiartinimui</div>
+              </div>
+
+             <!-- Rating and Direct Action Buttons -->
+             <div class="flex items-center justify-center flex-wrap mt-4" style="gap:14px; width:100%;">
+                 <button class="btn icon" id="btnRevPrev" style="width:52px; height:52px; font-size:22px" title="Ankstesnis kadras (Kairė rodyklė)">←</button>
+                 <button class="btn bad" id="btnRevSetBad" style="min-width:145px; height:52px; font-size:16px; font-weight:bold" title="Pažymėti kaip netinkamą (B)">👎 BAD (B)</button>
+                 <button class="btn good" id="btnRevSetGood" style="min-width:145px; height:52px; font-size:16px; font-weight:bold" title="Confirm kadrą (G)">👍 GOOD (G)</button>
+                 
+                 <div style="width:1px; height:36px; background:rgba(255,255,255,0.15); margin:0 4px;"></div>
+                 
+                  <button id="btnRevRegenNow" class="btn" style="height:52px; padding:0 18px; font-weight:700; font-size:13px; background:rgba(0,255,204,0.12); color:#00ffcc; border-color:rgba(0,255,204,0.35);" title="Generate naują šios scenos variaciją fone">
+                      🔄 Pergeneruoti Kadrą
+                  </button>
+                  
+                  <button id="btnRevEditPrompt" class="btn" style="height:52px; padding:0 16px; font-weight:700; font-size:13px; background:rgba(56,189,248,0.15); color:#38bdf8; border-color:rgba(56,189,248,0.35);" title="Redaguoti scenos promptą, nustatymus ir veikėjus">
+                      ✏️ Redaguoti
+                  </button>
+
+                  <button id="btnRevFurtherEdit" class="btn" style="height:52px; padding:0 16px; font-weight:700; font-size:13px; background:rgba(192,132,252,0.15); color:#c084fc; border-color:rgba(192,132,252,0.35);" title="Pažangus redagavimas (Inpainting, Re-edit, Upscale)">
+                      🎨 Pažangus Pataisymas
+                  </button>
+                  
+                  <button id="btnRevJumpImages" class="btn" style="height:52px; padding:0 14px; font-weight:600; font-size:12px; background:rgba(255,255,255,0.06); color:var(--text); border-color:rgba(255,255,255,0.15);" title="Peršokti tiesiai į šią kortelę Images skirtuke">
+                      ↗ Šokti į Images
+                  </button>
+
+                 <button class="btn icon" id="btnRevNext" style="width:52px; height:52px; font-size:22px" title="Kitas kadras (Dešinė rodyklė)">→</button>
+             </div>
+
+             <div id="revMetaPanel" class="panel mt-4" style="width:100%; background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.08); padding:20px;">
+                 <div class="grid-wf" style="grid-template-columns: 1fr 240px; gap:30px;">
+                    <div>
+                        <div class="text-xs text-muted mb-2" style="letter-spacing:1px">AI VISUAL PROMPT</div>
+                        <div id="revMetaPrompt" class="text-sm" style="line-height:1.5; color:var(--accent); font-family:var(--mono);">...</div>
+                        
+                        <div style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.05); padding-top:15px;">
+                            <div class="text-xs text-muted mb-2" style="letter-spacing:1px">ORIGINAL SCRIPT TEXT</div>
+                            <div class="script-quote-box">
+                                <div id="revMetaText" class="text-sm italic" style="opacity:0.9; line-height:1.6;">...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border-left:1px solid var(--border); padding-left:30px;">
+                        <div class="text-xs text-muted mb-3" style="letter-spacing:1px">CHARACTER REFERENCES</div>
+                        <div id="revMetaRefs" class="flex" style="flex-wrap:wrap; gap:10px;">
+                             </div>
+                        
+                        <div class="text-xs text-muted mt-4 mb-2" style="letter-spacing:1px">GENERATION DATA</div>
+                        <div id="revMetaParams" class="mono" style="font-size:11px; color:var(--muted); line-height:1.6">...</div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <div id="revSideCol" style="background:rgba(0,0,0,0.5); border-left:1px solid var(--border); padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:20px;">
+        <div style="font-weight:800; font-size:11px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; border-bottom:1px solid var(--border); padding-bottom:10px;">Variations</div>
+        <div id="revVariationsList" class="flex-col" style="gap:15px;">
+             </div>
+    </div>
+  </div>
+</div>

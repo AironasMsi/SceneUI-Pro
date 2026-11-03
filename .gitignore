@@ -1,0 +1,46 @@
+# Environment variables
+.env
+*.env
+env/
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Databases & local user state
+*.db
+*.sqlite
+*.sqlite3
+data/*.sqlite*
+data/*.db*
+data/projects/
+data/backups/
+data/cache/
+data/session.json
+
+# Local generated runtime media
+data/audio/
+data/renders/
+data/vault/
+data/bgm/
+
+# Scratch & temporary testing files
+scratch/
+reik patobulinti/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.mp4
+*.mkv
+*.avi
+*.mov
+data/demo_assets/*.mp4
+test_full_burned.mp4

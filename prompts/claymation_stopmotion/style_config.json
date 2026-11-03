@@ -1,0 +1,20 @@
+{
+  "displayName": "\ud83e\uddf1 Tactile Claymation (Stop-Motion)",
+  "scene_suffix": "Tactile stop-motion claymation, Aardman Studios aesthetic, sculpted plasticine clay textures, visible subtle thumbprints, physical miniature studio lighting, depth of field, handcrafted charming stop-motion look.",
+  "scene_negative": "2d flat illustration, digital vector, photorealistic human skin, smooth cgi, glossy, blurry, watermark",
+  "character_negative": "flat illustration, 2d vector, human photography, deformed, blurry, watermark",
+  "character_prompt_prefix": "Handcrafted claymation character, sculpted polymer clay, expressive plasticine eyes, ",
+  "character_prompt_suffix": ", physical stop-motion puppet aesthetic.",
+  "background_extras_prompt": "(sculpted plasticine clay miniature extras in handcrafted style)",
+  "empty_scene_removals": [
+    "vector",
+    "stickman",
+    "photorealism"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}

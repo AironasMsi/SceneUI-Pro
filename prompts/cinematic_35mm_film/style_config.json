@@ -1,0 +1,21 @@
+{
+  "displayName": "\ud83c\udfac Cinematic 35mm Film (Realism)",
+  "scene_suffix": "Cinematic 35mm photography, shot on Kodak Vision3 500T, anamorphic lens flare, shallow depth of field, authentic film grain, dynamic range, subtle color grading, directed by Roger Deakins, 8k resolution, photorealistic.",
+  "scene_negative": "cgi, 3d render, cartoon, anime, illustration, oversaturated, plastic skin, smooth render, blurry, distorted, low quality, watermark, signature",
+  "character_negative": "cartoon, 3d render, cgi, anime, deformed, distorted, extra limbs, bad anatomy, bad eyes, plastic skin, low resolution, watermark",
+  "character_prompt_prefix": "35mm cinematic character portrait, natural skin texture, documentary lighting, ",
+  "character_prompt_suffix": ", 35mm film aesthetic, photorealistic, 8k.",
+  "background_extras_prompt": "(cinematic atmospheric background extras with natural film motion blur)",
+  "empty_scene_removals": [
+    "stickman",
+    "cartoon",
+    "anime",
+    "illustration"
+  ],
+  "base_templates": {
+    "male": "master_base_male.png",
+    "female": "master_base_female.png",
+    "teen": "master_base_teen.png",
+    "kid": "master_base_kid.png"
+  }
+}
