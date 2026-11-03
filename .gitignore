@@ -23,3 +23,10 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .vscode/
+
+# Internal scratch & local notes
+scratch/
+reik patobulinti/
+story_scripts/
+TARGET_GOAL_*.md
+*.txt
