@@ -17,17 +17,17 @@ SceneUI Pro unifies local and remote LLM orchestration, multi-character identity
 
 Watch the autonomous production workstation in action and the master 1080p rendered result directly below:
 
-### 🎞️ Master Animation Result (55s Showcase)
-https://github.com/user-attachments/assets/35326395-1c1f-4b98-bc22-0bef39a679df
-
-> 🍿 **Final Animation**: Complete 1080p cartoon narrative generated autonomously by SceneUI Pro, featuring locked stickman visual identity, synchronized voiceover narration, diegetic Foley sound effects, dynamic BGM auto-ducking, and automated ASS captions.
-
-<br>
-
 ### 🎬 Studio Workflow & Multi-GPU Pipeline (1m 45s Walkthrough)
 https://github.com/user-attachments/assets/69d44ea0-e255-4b51-9e5a-bd452480897a
 
 > 🎥 **Studio Walkthrough**: Demonstrates end-to-end workflow: raw story script decomposition with LLM, character casting & identity locking, batch multi-GPU visual diffusion, sub-second WhisperX phoneme alignment, and non-linear audio mastering.
+
+<br>
+
+### 🎞️ Master Animation Result (55s Showcase)
+https://github.com/user-attachments/assets/35326395-1c1f-4b98-bc22-0bef39a679df
+
+> 🍿 **Final Animation**: Complete 1080p cartoon narrative generated autonomously by SceneUI Pro, featuring locked stickman visual identity, synchronized voiceover narration, diegetic Foley sound effects, dynamic BGM auto-ducking, and automated ASS captions.
 
 ---
 
