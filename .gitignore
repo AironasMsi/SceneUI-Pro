@@ -10,7 +10,9 @@ frontend/
 prompts/
 *.wav
 *.mp3
+# Large temporary video files
 *.mp4
+!media/*.mp4
 *.ass
 *.bat
 
