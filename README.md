@@ -2,9 +2,10 @@
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![ComfyUI Multi-GPU](https://img.shields.io/badge/ComfyUI-Multi--GPU_Farm-blueviolet.svg?style=flat)](https://github.com/comfyanonymous/ComfyUI)
+[![Cloud APIs](https://img.shields.io/badge/Cloud_APIs-OpenAI_·_Gemini_·_NanoBanana-FF6F00.svg?style=flat)](README.md)
 [![WhisperX](https://img.shields.io/badge/WhisperX-Phoneme_Sync-orange.svg?style=flat)](https://github.com/m-bain/whisperX)
 [![FFmpeg NVENC](https://img.shields.io/badge/FFmpeg-NVENC_Hardware_Mux-007808.svg?style=flat&logo=ffmpeg&logoColor=white)](https://ffmpeg.org/)
-[![License: Private / Showcase](https://img.shields.io/badge/License-Showcase_Release-yellow.svg)](README.md)
+[![License: Showcase](https://img.shields.io/badge/License-Showcase_Portfolio-yellow.svg)](README.md)
 
 An end-to-end autonomous video production workstation designed for creating high-retention, faceless YouTube animations, explainer series, and narrative documentaries. 
 
@@ -29,7 +30,7 @@ SceneUI Pro eliminates fragmented workflows between multiple disjointed tools. T
                                                               ▼
                                ┌─────────────────────────────────────────────────────────────┐
                                │                 LLM DIRECTING ENGINE                        │
-                               │           (Local Ollama / OpenAI / Anthropic)               │
+                               │     (Local Ollama / OpenAI GPT-4o / Google Gemini Flash)    │
                                ├──────────────────────────────┬──────────────────────────────┤
                                │                              │                              │
                                │ (Mode A: Cast Extraction)    │ (Mode B: Scene Matrix)       │
@@ -60,7 +61,7 @@ SceneUI Pro eliminates fragmented workflows between multiple disjointed tools. T
                                                        ▼
                                      ┌───────────────────────────────────┐
                                      │   4. DISTRIBUTED VISUAL ENGINE    │
-                                     │ Multi-GPU ComfyUI Load Balancing  │
+                                     │ Multi-GPU Farm & Nano Banana API  │
                                      │ Batch image generation + VAE live │
                                      └─────────────────┬─────────────────┘
                                                        │
@@ -92,9 +93,10 @@ SceneUI Pro eliminates fragmented workflows between multiple disjointed tools. T
 ## 📸 Visual Production Walkthrough
 
 ### 1. Script Decomposition & LLM Auto-Director
-The workflow begins by pasting the narrative script into **1. Script & LLM** and selecting the target visual art style. The system supports local LLMs (via Ollama, e.g., Qwen 2.5 32B, Llama 3.3) or Cloud APIs (GPT-4o, Claude 3.5 Sonnet).
-- **Mode A (Extract Characters):** Automatically decomposes the script to identify cast members, generating isolated prompt profiles, base templates, and negative prompts.
-- **Mode B (Generate Scenes):** Decomposes the story into a sequence of scenes (e.g., 18 scenes), generating camera framing parameters (wide establishing, low-angle, medium close-up), dynamic motion prompts (`video_prompt`), dialogue lines, and character reference bindings (`refA`, `refB`).
+The workflow begins by pasting the narrative script into **1. Script & LLM** and selecting the target visual art style.
+* **Hybrid LLM Inference:** Seamlessly toggle between local zero-cost models (via Ollama: Qwen 2.5 32B, Llama 3.3) and high-speed Cloud APIs (OpenAI GPT-4o-mini / GPT-4o, Google Gemini 3.1 Flash / Pro).
+* **Mode A (Extract Characters):** Automatically decomposes the script to identify cast members, generating isolated prompt profiles, base templates, and negative prompts.
+* **Mode B (Generate Scenes):** Decomposes the story into a sequence of scenes (e.g., 18 scenes), generating camera framing parameters (wide establishing, low-angle, medium close-up), dynamic motion prompts (`video_prompt`), dialogue lines, and character reference bindings (`refA`, `refB`).
 
 | Script Input & Character Extraction | Generated Scene Matrix JSON |
 | :---: | :---: |
@@ -111,8 +113,8 @@ The structured output is reviewed in **2. Scene Matrix**. Every scene's visual p
 
 ### 3. Character Casting & Visual Identity Anchoring
 In **3. Character Casting**, the system synthesizes consistent full-body visual anchors for every character using base template proportions (`base_male`, `base_female`, `base_teen`, `base_kid`).
-- **Generation & Custom Uploads:** Characters can be generated from scratch, synthesized from reference images, or uploaded manually.
-- **Iterative Refinement:** Built-in inpainting and prompt adjustments allow fine-tuning until the visual character identity is locked. These references are injected into all downstream scenes to maintain visual consistency.
+* **Generation & Custom Uploads:** Characters can be generated from scratch, synthesized from reference images, or uploaded manually.
+* **Iterative Refinement:** Built-in inpainting and prompt adjustments allow fine-tuning until the visual character identity is locked. These references are injected into all downstream scenes to maintain visual consistency.
 
 ![02 Character Casting](./screenshots/02_Character_Casting_Generated.png)
 
@@ -120,9 +122,9 @@ In **3. Character Casting**, the system synthesizes consistent full-body visual 
 
 ### 4. Voice Casting & Multi-Speaker Audio Synthesis
 In **4. Voice & Audio**, the script dialogue is parsed into audio chunks per scene.
-- **Voice Library & Cloning:** Users can select saved voice profiles, design new synthetic voices, or clone voices from sample WAV files.
-- **Multi-Speaker Dialogues:** Different voices can be assigned to different characters (e.g., Alex vs. Maya).
-- **Master Dialogue Stitching:** Synthesizes individual scene audio files (`chunk_s1.wav` ... `chunk_s18.wav`) and automatically stitches them into a master dialogue track (`default_full_script_dialogue.wav`) with crossfades.
+* **Voice Library & Cloning:** Users can select saved voice profiles, design new synthetic voices, or clone voices from sample WAV files.
+* **Multi-Speaker Dialogues:** Different voices can be assigned to different characters (e.g., Alex vs. Maya).
+* **Master Dialogue Stitching:** Synthesizes individual scene audio files (`chunk_s1.wav` ... `chunk_s18.wav`) and automatically stitches them into a master dialogue track (`default_full_script_dialogue.wav`) with crossfades.
 
 ![05 Voice Audio](./screenshots/05_Voice_and_Audio_Synthesis.png)
 
@@ -130,8 +132,11 @@ In **4. Voice & Audio**, the script dialogue is parsed into audio chunks per sce
 
 ### 5. Visual Engine: Batch Image Synthesis & Live GPU Telemetry
 In **5. Visual Engine**, all scenes are populated and rendered using the character reference anchors and scene prompts.
-- **Live Progress Telemetry:** Real-time VAE decoding percentages, step progress bars, and assigned GPU worker indices stream directly to each scene card.
-- **Variations & Overlays:** Every scene supports unlimited variations, quick regeneration (`↻`), horizontal mirror flipping (`🪞`), and manual parameter editing.
+* **Dual Inference Pipeline (Local Farm vs. Cloud API):**
+  * **Local GPU Cluster:** Qwen Image 2.1 native diffusion running on local/remote ComfyUI instances with latent upscaling.
+  * **Cloud Fast-Path (Nano Banana 2 Flash):** High-speed Cloud API integration (`nano_banana_2_flash`) for lightning-fast character and scene generation when local VRAM is constrained.
+* **Live Progress Telemetry:** Real-time VAE decoding percentages, step progress bars, and assigned GPU worker indices stream directly to each scene card.
+* **Variations & Overlays:** Every scene supports unlimited variations, quick regeneration (`↻`), horizontal mirror flipping (`🪞`), and manual parameter editing.
 
 | Live Batch GPU Generation | Completed Scene Illustration Matrix |
 | :---: | :---: |
@@ -141,8 +146,8 @@ In **5. Visual Engine**, all scenes are populated and rendered using the charact
 
 ### 6. Image-to-Video (I2V) Motion Studio & Inspection
 Static keyframes can be converted into animated video sequences.
-- **Batch Video Modal:** Provides a one-click modal to generate videos for all or missing scenes, with selectable Foley sound integration.
-- **Video Inspection & Trimming:** Inspect generated 24fps MP4 clips in the fullscreen viewer (`09`) or trim clip durations using the interactive video trimmer (`✂️`).
+* **Batch Video Modal:** Provides a one-click modal to generate videos for all or missing scenes, with selectable Foley sound integration.
+* **Video Inspection & Trimming:** Inspect generated 24fps MP4 clips in the fullscreen viewer (`09`) or trim clip durations using the interactive video trimmer (`✂️`).
 
 | Batch Video Generation Modal | Fullscreen Video Inspector & Variations |
 | :---: | :---: |
@@ -152,8 +157,8 @@ Static keyframes can be converted into animated video sequences.
 
 ### 7. Timeline & WhisperX Sub-Second Synchronization
 In **7. Timeline**, speech audio and visual scenes are synchronized.
-- **WhisperX Phoneme Alignment:** Aligns the master dialogue track down to word and phoneme timestamps.
-- **Automatic Scene Duration Locking:** Automatically recalculates and locks the duration of each scene card to match the exact spoken dialogue window.
+* **WhisperX Phoneme Alignment:** Aligns the master dialogue track down to word and phoneme timestamps.
+* **Automatic Scene Duration Locking:** Automatically recalculates and locks the duration of each scene card to match the exact spoken dialogue window.
 
 ![10 Timeline](./screenshots/10_Timeline_WhisperX_Alignment.png)
 
@@ -161,9 +166,9 @@ In **7. Timeline**, speech audio and visual scenes are synchronized.
 
 ### 8. Post-Production: BGM Studio, SFX Foley Mixer & Captions
 The system integrates non-linear post-production tools directly in **8. Video Studio**:
-- **🎵 BGM Waveform Studio:** Interactive waveform scrubber, in/out trimming, fade curves, and automatic speech ducking.
-- **🔊 Scene SFX & Foley Audio Mixer:** Per-scene volume sliders, mute controls, and diegetic sound balancing.
-- **✨ Animated Word Captions & LUTs:** Dynamic karaoke-style highlighted subtitles and cinematic color grading presets (Original, Teal & Orange, Vintage Film, Cyberpunk).
+* **🎵 BGM Waveform Studio:** Interactive waveform scrubber, in/out trimming, fade curves, and automatic speech ducking.
+* **🔊 Scene SFX & Foley Audio Mixer:** Per-scene volume sliders, mute controls, and diegetic sound balancing.
+* **✨ Animated Word Captions & LUTs:** Dynamic karaoke-style highlighted subtitles and cinematic color grading presets (Original, Teal & Orange, Vintage Film, Cyberpunk).
 
 | BGM Studio Waveform Editor | Scene SFX & Foley Audio Mixer | Transitions, Captions & LUTs |
 | :---: | :---: | :---: |
@@ -201,8 +206,8 @@ SceneUI Pro is built as a distributed client-server production environment:
                 ▼                                                     ▼
 ┌───────────────────────────────┐                     ┌───────────────────────────────┐
 │     LOCAL WORKER NODE #1      │                     │     REMOTE CLOUD NODE #2      │
-│  (e.g., RTX 4090 / 24GB VRAM) │                     │  (e.g., RunPod / Remote Host) │
-│  - ComfyUI Instance (:8188)   │                     │  - ComfyUI Instance (:8189)   │
+│  (e.g., RTX 4090 / 24GB VRAM) │                     │  (e.g., RunPod / Cloud API)   │
+│  - ComfyUI Instance (:8188)   │                     │  - Nano Banana 2 Flash API    │
 │  - Qwen Image 2.1 Native      │                     │  - MiniMax H3 Video / Wan2.1  │
 │  - Latent Upscaler / LoRA     │                     │  - MMAudio Video SFX          │
 └───────────────────────────────┘                     └───────────────────────────────┘
@@ -213,6 +218,7 @@ SceneUI Pro is built as a distributed client-server production environment:
   * `image_qwen_image_2_1.json`: Native Qwen Image 2.1 architecture for visual generation and prompt adherence.
   * `qwen_image_latent_upscale.json`: Multi-pass latent diffusion upscaling for high-frequency detail.
   * `qwen_image_edit_2511_systms_action.json`: Targeted inpainting and character modification workflow.
+  * `nano_banana_2_flash`: Cloud API model preset for instantaneous cloud rendering.
 * **Image-to-Video Diffusion (I2V):**
   * `18_MiniMax_H3_Vientisas_Kadras_Gyva_Scena_Tikslus_LipSync_api.json`: High-motion temporal diffusion with character consistency and lip synchronization.
   * Support for Wan2.1, Stable Video Diffusion (SVD), and CogVideoX pipelines.
@@ -233,5 +239,5 @@ SceneUI Pro is built as a distributed client-server production environment:
 
 ## 🔒 Security & Intellectual Property Notice
 
-* **Showcase Release:** This repository is published as a technical showcase and architecture portfolio demonstration.
+* **Showcase Release:** This repository is published as a technical architecture portfolio showcase.
 * **Proprietary Workflows & Engine:** Core internal engine code, proprietary ComfyUI workflow JSON structures, and training models remain private intellectual property.
